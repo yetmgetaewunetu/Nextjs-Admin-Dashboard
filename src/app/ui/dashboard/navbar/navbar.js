@@ -6,7 +6,7 @@ import { MdChat, MdNotifications, MdPublic, MdSearch } from "react-icons/md";
 export default function Navbar() {
   const path = usePathname();
   return (
-    <div className="flex rounded-lg justify-between gap-10 -bg--bgSoft p-5 flex-1">
+    <div className="flex rounded-lg justify-between flex-grow-0 gap-10 -bg--bgSoft p-5 flex-1">
       <h3 className=" text-xl -text--textSoft capitalize">
         {path.split("/").pop()}
       </h3>

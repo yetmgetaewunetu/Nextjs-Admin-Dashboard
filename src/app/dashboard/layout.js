@@ -2,15 +2,19 @@ import React from "react";
 import Navbar from "../ui/dashboard/navbar/navbar";
 import Sidebar from "../ui/dashboard/sidebar/sidebar";
 import "../globals.css";
+import Footer from "../ui/dashboard/footer/footer";
 
 export default function layout({ children }) {
   return (
     <div className="flex">
-      <Sidebar />
+      <div style={{ flex: 1 }}>
+        <Sidebar />
+      </div>
 
-      <div className="p-5 flex-grow-1 w-3/4">
+      <div style={{ flex: 4 }} className="p-5 flex flex-col w-3/4">
         <Navbar />
-        {children}
+        <div className="flex-grow">{children}</div>
+        <Footer />
       </div>
     </div>
   );

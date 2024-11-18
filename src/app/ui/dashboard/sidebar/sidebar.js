@@ -82,7 +82,7 @@ export default function Sidebar() {
   const path = usePathname();
   console.log(path);
   return (
-    <div className=" w-1/4 p-8 -bg--bgSoft">
+    <div className=" w-full min-h-screen p-8 -bg--bgSoft">
       <div className="mb-7">
         <div className="items-center flex gap-4 text-2xl mb-3">
           <span className=" bg-gray-400 rounded-full p-2">
