@@ -1,7 +1,11 @@
+import { getUser, updateUser } from "@/app/lib/actions";
 import Image from "next/image";
 import React from "react";
 
-function SingleUserViewPage() {
+async function SingleUserViewPage({ params }) {
+  const { id } = params;
+  const user = await getUser(id);
+  // console.log(user);
   return (
     <div className="flex gap-6 mt-5 p-3 ">
       <div
@@ -9,68 +13,75 @@ function SingleUserViewPage() {
         className=" flex flex-col h-max -bg--bgSoft p-3 rounded-md text-xl text-center"
       >
         <div className=" w-full h-80 relative">
-          <Image src="/avatar.png" alt="img" fill />
+          <Image src={user.img || "/avatar.png"} alt="img" fill />
         </div>
-        John Doe
+        {user.username}
       </div>
       <form
+        action={updateUser}
         style={{ flex: 2 }}
         className="-bg--bgSoft p-3 rounded-md flex flex-col gap-4 mb-4"
       >
+        <input type="text" className=" hidden" name="id" value={user.id} />
         <input
           className=" border-gray-600 border outline-none w-full rounded-md p-3 -bg--bg "
           type="text"
-          placeholder="username"
+          placeholder={user.username}
+          name="username"
         />
         <input
           className=" border-gray-600 border outline-none w-full rounded-md p-3 -bg--bg "
           type="text"
-          placeholder="email"
+          placeholder={user.email}
+          name="email"
         />
         <input
           className=" border-gray-600 border outline-none w-full rounded-md p-3 -bg--bg "
           type="text"
-          placeholder="password"
+          placeholder={"new password"}
+          name="password"
         />
         <input
           className=" border-gray-600 border outline-none w-full rounded-md p-3 -bg--bg "
           type="text"
-          placeholder="phone"
+          placeholder={user.phone}
+          name="phone"
         />
         <select
-          className=" border-gray-600 border outline-none w-full rounded-md p-3  outline-none  -bg--bg"
-          name="category"
+          className=" border-gray-600 border w-full rounded-md p-3  outline-none  -bg--bg"
+          name="isAdmin"
           id="cat"
         >
-          <option className=" -bg--bgSoft" value="general">
+          <option className=" -bg--bgSoft" value={false}>
             is Admin?
           </option>
-          <option className=" -bg--bgSoft" value="true">
+          <option className=" -bg--bgSoft" value={true}>
             Yes
           </option>
-          <option className=" -bg--bgSoft" value="false">
+          <option className=" -bg--bgSoft" value={false}>
             No
           </option>
         </select>
         <select
           className=" border-gray-600 border outline-none w-full rounded-md p-3 -bg--bg"
-          name="category"
+          name="isActive"
           id="cat"
         >
-          <option className=" -bg--bgSoft" value="general">
+          <option className=" -bg--bgSoft" value={true}>
             is Active?
           </option>
-          <option className=" -bg--bgSoft" value="true">
+          <option className=" -bg--bgSoft" value={true}>
             Yes
           </option>
-          <option className=" -bg--bgSoft" value="false">
+          <option className=" -bg--bgSoft" value={false}>
             NO
           </option>
         </select>
         <input
           className=" border-gray-600 border outline-none w-full rounded-md p-3 -bg--bg "
           type="text"
-          placeholder="address"
+          placeholder={user.address}
+          name="address"
         />
         <button
           type="submit"

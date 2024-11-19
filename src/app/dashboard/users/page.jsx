@@ -58,9 +58,17 @@ export default async function page({ searchParams }) {
                       view
                     </button>
                   </Link>
-                  <button className="hover:opacity-85 py-1 px-4 font-bold rounded-md bg-red-500 text-white">
-                    delete
-                  </button>
+                  <form action={deleteUser}>
+                    <input
+                      type="text"
+                      name="id"
+                      value={user.id}
+                      className=" hidden"
+                    />
+                    <button className="hover:opacity-85 py-1 px-4 font-bold rounded-md bg-red-500 text-white">
+                      delete
+                    </button>
+                  </form>
                 </td>
               </tr>
             );

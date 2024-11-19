@@ -1,17 +1,19 @@
+import { addProduct } from "@/app/lib/actions";
 import React from "react";
 
 export default function page() {
   return (
     <div className="mt-6 -bg--bgSoft p-6">
-      <form action="" className=" text-white">
+      <form action={addProduct} className=" text-white">
         <div className=" grid grid-cols-2 gap-4 mb-4">
           <input
             className=" border-gray-600 border outline-none w-full rounded-md p-3 -bg--bg "
             type="text"
             placeholder="title"
+            name="title"
           />
           <select
-            className=" border-gray-600 border outline-none w-full rounded-md p-3  outline-none  -bg--bg"
+            className=" border-gray-600 border w-full rounded-md p-3  outline-none  -bg--bg"
             name="category"
             id="cat"
           >
@@ -29,21 +31,25 @@ export default function page() {
             className=" border-gray-600 border outline-none w-full rounded-md p-3 -bg--bg "
             type="number"
             placeholder="price"
+            name="price"
           />
           <input
             className=" border-gray-600 border outline-none w-full rounded-md p-3 -bg--bg "
             type="number"
             placeholder="stock"
+            name="stock"
           />
           <input
             className=" border-gray-600 border outline-none w-full rounded-md p-3 -bg--bg "
             type="tex"
             placeholder="color"
+            name="color"
           />
           <input
             className=" border-gray-600 border outline-none w-full rounded-md p-3 -bg--bg "
             type="text"
             placeholder="size"
+            name="size"
           />
         </div>
         <textarea

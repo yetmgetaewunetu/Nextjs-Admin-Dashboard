@@ -1,7 +1,12 @@
+import { getProduct, updateProduct } from "@/app/lib/actions";
+import { Product } from "@/app/lib/models";
 import Image from "next/image";
 import React from "react";
 
-function SingleUserViewPage() {
+async function SingleUserViewPage({ params }) {
+  const { id } = params;
+  const product = await getProduct(id);
+  // console.log(product.description);
   return (
     <div className="flex gap-6 mt-5 p-3 ">
       <div
@@ -9,21 +14,26 @@ function SingleUserViewPage() {
         className=" flex flex-col h-max -bg--bgSoft p-3 rounded-md text-xl text-center"
       >
         <div className=" w-full h-80 relative">
-          <Image src="/avatar.png" alt="img" fill />
+          <Image src={product.img || "/mango.png"} alt="img" fill />
         </div>
-        John Doe
+        {product.title}
       </div>
       <form
+        action={updateProduct}
         style={{ flex: 2 }}
         className="-bg--bgSoft p-3 rounded-md flex flex-col gap-4 mb-4"
       >
+        <input type="text" className=" hidden" value={Product.id} name="id" />
+        <label className=" font-bold text-white text-lg">Title</label>
         <input
           className=" border-gray-600 border outline-none w-full rounded-md p-3 -bg--bg "
           type="text"
-          placeholder="title"
+          placeholder={product.title}
+          name="title"
         />
+        <label className=" font-bold text-white text-lg">Category</label>
         <select
-          className=" border-gray-600 border outline-none w-full rounded-md p-3  outline-none  -bg--bg"
+          className=" border-gray-600 border outline-none w-full rounded-md p-3   -bg--bg"
           name="category"
           id="cat"
         >
@@ -37,31 +47,41 @@ function SingleUserViewPage() {
             Kitchen
           </option>
         </select>
+        <label className=" font-bold text-white text-lg">Price</label>
         <input
           className=" border-gray-600 border outline-none w-full rounded-md p-3 -bg--bg "
           type="number"
-          placeholder="price"
+          placeholder={product.price}
+          name="price"
         />
+        <label className=" font-bold text-white text-lg">Stock</label>
         <input
           className=" border-gray-600 border outline-none w-full rounded-md p-3 -bg--bg "
           type="number"
-          placeholder="stock"
+          placeholder={product.stock}
+          name="stock"
         />
-        <input
-          className=" border-gray-600 border outline-none w-full rounded-md p-3 -bg--bg "
-          type="tex"
-          placeholder="color"
-        />
+        <label className=" font-bold text-white text-lg">Color</label>
         <input
           className=" border-gray-600 border outline-none w-full rounded-md p-3 -bg--bg "
           type="text"
-          placeholder="size"
+          placeholder={product.color}
+          name="color"
         />
+        <label className=" font-bold text-white text-lg">Size</label>
+        <input
+          className=" border-gray-600 border outline-none w-full rounded-md p-3 -bg--bg "
+          type="text"
+          placeholder={product.size}
+          name="size"
+        />
+        <label className=" font-bold text-white text-lg">Description</label>
         <textarea
           className=" border-gray-600 border outline-none w-full rounded-md p-3 -bg--bg "
           type="text"
           cols={10}
-          placeholder="description"
+          placeholder={product.description}
+          name="description"
         />
 
         <button

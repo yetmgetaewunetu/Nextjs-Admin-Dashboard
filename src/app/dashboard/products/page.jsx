@@ -5,13 +5,14 @@ import Link from "next/link";
 import React from "react";
 import { FaUser } from "react-icons/fa";
 import Image from "next/image";
+import { deleteProduct } from "@/app/lib/actions";
 // import { searchParams } from "next/navigation";
 
 export default async function page({ searchParams }) {
   const q = searchParams?.q || "";
   const page = searchParams?.page || 1;
   const { count, products } = await fetchProducts(q, page);
-
+  // console.log(products);
   return (
     <div className=" flex-grow -bg--bgSoft mt-6 p-6 rounded-md">
       <div className="flex justify-between items-center">
@@ -40,7 +41,7 @@ export default async function page({ searchParams }) {
                 <td className=" p-1 flex items-center gap-1">
                   <Image
                     className=" rounded-full object-cover aspect-square"
-                    src={product.img}
+                    src={product.img || "/mango.png"}
                     width="40"
                     height="40"
                     alt="product image"
@@ -56,16 +57,24 @@ export default async function page({ searchParams }) {
                 </td>
                 <td className="p-1">{product.stock}</td>
                 <td className="p-1 flex gap-2">
-                  <Link href="/dashboard/products/test">
+                  <Link href={`/dashboard/products/${product.id}`}>
                     <button
                       className={`hover:opacity-85 py-1 font-bold px-4 rounded-md bg-teal-500 text-white 1`}
                     >
                       view
                     </button>
                   </Link>
-                  <button className="hover:opacity-85 py-1 px-4 font-bold rounded-md bg-red-500 text-white">
-                    delete
-                  </button>
+                  <form action={deleteProduct}>
+                    <input
+                      type="text"
+                      name="id"
+                      value={product.id}
+                      className=" hidden"
+                    />
+                    <button className="hover:opacity-85 py-1 px-4 font-bold rounded-md bg-red-500 text-white">
+                      delete
+                    </button>
+                  </form>
                 </td>
               </tr>
             );
