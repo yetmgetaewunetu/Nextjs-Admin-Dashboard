@@ -5,11 +5,14 @@ import React from "react";
 import { FaUser } from "react-icons/fa";
 import Image from "next/image";
 import { fetchData } from "@/app/lib/data";
+import { searchParams } from "next/navigation";
+import { deleteUser } from "@/app/lib/actions";
 
 export default async function page({ searchParams }) {
   const q = searchParams?.q || "";
-  const users = await fetchData(q);
-  console.log(users);
+  const page = searchParams?.page || 1;
+  const { count, users } = await fetchData(q, page);
+  // console.log(users);
   return (
     <div className=" flex-grow -bg--bgSoft mt-6 p-6 rounded-md">
       <div className="flex justify-between items-center">
@@ -38,7 +41,7 @@ export default async function page({ searchParams }) {
                 <td className=" p-1 flex items-center gap-1">
                   <Image
                     className=" rounded-full aspect-square object-cover"
-                    src={user.img}
+                    src={user.img || "/avatar.png"}
                     width="40"
                     height="40"
                     alt="image"
@@ -50,7 +53,7 @@ export default async function page({ searchParams }) {
                 <td className="p-1">{user.isAdmin ? "Admin" : "user"}</td>
                 <td className="p-1">{user.isActive ? "online" : "offline"}</td>
                 <td className="p-1 flex gap-2">
-                  <Link href="/dashboard/users/test">
+                  <Link href={`/dashboard/users/${user.id}`}>
                     <button className="hover:opacity-85 py-1 font-bold px-4 rounded-md bg-teal-700 text-white ">
                       view
                     </button>
@@ -64,7 +67,7 @@ export default async function page({ searchParams }) {
           })}
         </tbody>
       </table>
-      <Pagination />
+      <Pagination count={count} />
     </div>
   );
 }

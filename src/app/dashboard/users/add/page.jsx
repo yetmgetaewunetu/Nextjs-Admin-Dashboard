@@ -1,34 +1,43 @@
+import { addUser } from "@/app/lib/actions";
 import React from "react";
 
 export default function page() {
   return (
     <div className="mt-6 -bg--bgSoft p-6">
-      <form action="" className=" text-white">
+      <form action={addUser} className=" text-white">
         <div className=" grid grid-cols-2 gap-4 mb-4">
           <input
             className=" border-gray-600 border outline-none w-full rounded-md p-3 -bg--bg "
             type="text"
+            name="username"
             placeholder="username"
+            required
           />
           <input
             className=" border-gray-600 border outline-none w-full rounded-md p-3 -bg--bg "
             type="text"
             placeholder="email"
+            name="email"
+            required
           />
           <input
             className=" border-gray-600 border outline-none w-full rounded-md p-3 -bg--bg "
             type="text"
             placeholder="password"
+            name="password"
+            required
           />
           <input
             className=" border-gray-600 border outline-none w-full rounded-md p-3 -bg--bg "
             type="text"
             placeholder="phone"
+            name="phone"
           />
           <select
             className=" border-gray-600 border outline-none w-full rounded-md p-3  outline-none  -bg--bg"
-            name="category"
+            name="isAdmin"
             id="cat"
+            defaultValue={false}
           >
             <option className=" -bg--bgSoft" value="general">
               is Admin?
@@ -42,8 +51,9 @@ export default function page() {
           </select>
           <select
             className=" border-gray-600 border outline-none w-full rounded-md p-3 -bg--bg"
-            name="category"
+            name="isActive"
             id="cat"
+            defaultValue={true}
           >
             <option className=" -bg--bgSoft" value="general">
               is Active?

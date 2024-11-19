@@ -76,7 +76,7 @@ function SingleUserViewPage() {
           type="submit"
           className=" -text--text bg-teal-700  w-full mt-3 p-3 hover:opacity-85"
         >
-          Submit
+          Update
         </button>
       </form>
     </div>

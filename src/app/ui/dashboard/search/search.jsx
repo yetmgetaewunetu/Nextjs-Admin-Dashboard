@@ -2,12 +2,13 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 import { MdSearch } from "react-icons/md";
+import { useDebouncedCallback } from "use-debounce";
 
 function Search({ placeholder }) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
-  const handleSearch = (e) => {
+  const handleSearch = useDebouncedCallback((e) => {
     const params = new URLSearchParams(searchParams);
     if (e.target.value) {
       e.target.value.length > 2 && params.set("q", e.target.value);
@@ -15,7 +16,7 @@ function Search({ placeholder }) {
       params.delete("q");
     }
     replace(`${pathname}?${params}`);
-  };
+  }, 300);
   return (
     <div>
       <div className="flex -bg--bgLight rounded-lg p-2 items-center gap-3">
