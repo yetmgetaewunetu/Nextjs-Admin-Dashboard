@@ -4,6 +4,8 @@ import { Product, User } from "./models";
 import { redirect } from "next/navigation";
 import { dbConnection } from "./utils";
 import bcrypt from "bcrypt";
+import { signIn, signOut } from "../auth";
+
 export const addUser = async (formData) => {
   dbConnection();
   try {
@@ -20,7 +22,8 @@ export const addUser = async (formData) => {
       isAdmin,
       address,
     });
-    await newUser.save();
+    const response = await newUser.save();
+    console.log(response);
   } catch (error) {
     console.log(error.message);
     throw new Error("can't add user");
@@ -135,8 +138,8 @@ export const getProduct = async (id) => {
 
 export const updateProduct = async (formData) => {
   dbConnection();
-  console.log(formData);
-  console.log("updating product");
+  // console.log(formData);
+  // console.log("updating product");
   try {
     let { id, title, price, stock, description, category, color, size } =
       Object.fromEntries(formData);
@@ -162,5 +165,22 @@ export const updateProduct = async (formData) => {
     console.log(error.message);
   }
   revalidatePath("/dashboard/products");
-  // redirect("/dashboard/products");
+  redirect("/dashboard/products");
+};
+
+export const authenticate = async (formData) => {
+  dbConnection();
+  console.log(formData);
+  try {
+    const { username, password } = Object.fromEntries(formData);
+    const response = await signIn("credentials", {
+      username,
+      password,
+      // redirect: "/home",
+    });
+    return response;
+  } catch (error) {
+    console.log(error.message);
+    throw error;
+  }
 };

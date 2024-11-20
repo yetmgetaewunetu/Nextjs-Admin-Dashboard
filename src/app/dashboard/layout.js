@@ -3,8 +3,12 @@ import Navbar from "../ui/dashboard/navbar/navbar";
 import Sidebar from "../ui/dashboard/sidebar/sidebar";
 import "../globals.css";
 import Footer from "../ui/dashboard/footer/footer";
+import { auth } from "../auth";
+import SideBarContainer from "../ui/dashboard/sidebar/SideBarContainer";
 
-export default function layout({ children }) {
+export default async function layout({ children }) {
+  const session = await auth();
+  console.log(session);
   return (
     <div className="flex">
       <div style={{ flex: 1 }}>

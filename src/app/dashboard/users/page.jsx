@@ -2,13 +2,12 @@ import Pagination from "@/app/ui/dashboard/pagination/pagination";
 import Search from "@/app/ui/dashboard/search/search";
 import Link from "next/link";
 import React from "react";
-import { FaUser } from "react-icons/fa";
 import Image from "next/image";
 import { fetchData } from "@/app/lib/data";
-import { searchParams } from "next/navigation";
 import { deleteUser } from "@/app/lib/actions";
 
 export default async function page({ searchParams }) {
+  await searchParams;
   const q = searchParams?.q || "";
   const page = searchParams?.page || 1;
   const { count, users } = await fetchData(q, page);
@@ -55,7 +54,7 @@ export default async function page({ searchParams }) {
                 <td className="p-1 flex gap-2">
                   <Link href={`/dashboard/users/${user.id}`}>
                     <button className="hover:opacity-85 py-1 font-bold px-4 rounded-md bg-teal-700 text-white ">
-                      view
+                      update
                     </button>
                   </Link>
                   <form action={deleteUser}>

@@ -2,8 +2,7 @@ import { getProduct, updateProduct } from "@/app/lib/actions";
 import { Product } from "@/app/lib/models";
 import Image from "next/image";
 import React from "react";
-
-async function SingleUserViewPage({ params }) {
+async function SingleProductViewPage({ params }) {
   const { id } = params;
   const product = await getProduct(id);
   // console.log(product.description);
@@ -23,7 +22,7 @@ async function SingleUserViewPage({ params }) {
         style={{ flex: 2 }}
         className="-bg--bgSoft p-3 rounded-md flex flex-col gap-4 mb-4"
       >
-        <input type="text" className=" hidden" value={Product.id} name="id" />
+        <input type="text" className=" hidden" value={id} name="id" />
         <label className=" font-bold text-white text-lg">Title</label>
         <input
           className=" border-gray-600 border outline-none w-full rounded-md p-3 -bg--bg "
@@ -37,7 +36,7 @@ async function SingleUserViewPage({ params }) {
           name="category"
           id="cat"
         >
-          <option className=" -bg--bgSoft" value="general">
+          <option className=" -bg--bgSoft" value={product.category}>
             Choose a category
           </option>
           <option className=" -bg--bgSoft" value="Electronics">
@@ -95,4 +94,4 @@ async function SingleUserViewPage({ params }) {
   );
 }
 
-export default SingleUserViewPage;
+export default SingleProductViewPage;

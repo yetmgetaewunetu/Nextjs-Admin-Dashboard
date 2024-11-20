@@ -8,6 +8,7 @@ function Search({ placeholder }) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
+  console.log(pathname);
   const handleSearch = useDebouncedCallback((e) => {
     const params = new URLSearchParams(searchParams);
     if (e.target.value) {

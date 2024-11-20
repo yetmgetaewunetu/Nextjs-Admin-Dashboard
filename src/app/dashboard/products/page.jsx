@@ -8,7 +8,7 @@ import Image from "next/image";
 import { deleteProduct } from "@/app/lib/actions";
 // import { searchParams } from "next/navigation";
 
-export default async function page({ searchParams }) {
+export default async function Users({ searchParams }) {
   const q = searchParams?.q || "";
   const page = searchParams?.page || 1;
   const { count, products } = await fetchProducts(q, page);
@@ -61,7 +61,7 @@ export default async function page({ searchParams }) {
                     <button
                       className={`hover:opacity-85 py-1 font-bold px-4 rounded-md bg-teal-500 text-white 1`}
                     >
-                      view
+                      update
                     </button>
                   </Link>
                   <form action={deleteProduct}>

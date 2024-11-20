@@ -3,7 +3,7 @@ import Image from "next/image";
 import React from "react";
 
 async function SingleUserViewPage({ params }) {
-  const { id } = params;
+  const { id } = await params;
   const user = await getUser(id);
   // console.log(user);
   return (
