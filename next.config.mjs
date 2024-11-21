@@ -9,5 +9,8 @@ const nextConfig = {
     ],
   },
 };
-
+export const configs = {
+  assetPrefix: "/Nextjs-Admin-Dashboard/",
+  basePath: "/Nextjs-Admin-Dashboard",
+};
 export default nextConfig;
