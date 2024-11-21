@@ -168,7 +168,7 @@ export const updateProduct = async (formData) => {
   redirect("/dashboard/products");
 };
 
-export const authenticate = async (formData) => {
+export const authenticate = async (prevVal, formData) => {
   dbConnection();
   console.log(formData);
   try {
@@ -180,7 +180,6 @@ export const authenticate = async (formData) => {
     });
     return response;
   } catch (error) {
-    console.log(error.message);
-    throw error;
+    return "Wrong Credentials";
   }
 };
