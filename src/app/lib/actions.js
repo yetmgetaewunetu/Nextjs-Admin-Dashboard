@@ -6,6 +6,15 @@ import { dbConnection } from "./utils";
 import bcrypt from "bcrypt";
 import { signIn, signOut } from "../auth";
 
+export const getAllProducts = async () => {
+  dbConnection();
+  return await Product.find();
+};
+export const getAllUsers = async () => {
+  dbConnection();
+  return await User.find();
+};
+
 export const addUser = async (formData) => {
   dbConnection();
   try {
@@ -169,14 +178,13 @@ export const updateProduct = async (formData) => {
 };
 
 export const authenticate = async (prevVal, formData) => {
-  dbConnection();
-  console.log(formData);
+  await dbConnection();
+  console.log("authenticate", formData);
   try {
     const { username, password } = Object.fromEntries(formData);
     const response = await signIn("credentials", {
       username,
       password,
-      // redirect: "/home",
     });
     return response;
   } catch (error) {

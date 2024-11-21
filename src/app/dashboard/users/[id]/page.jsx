@@ -1,4 +1,4 @@
-import { getUser, updateUser } from "@/app/lib/actions";
+import { getAllUsers, getUser, updateUser } from "@/app/lib/actions";
 import Image from "next/image";
 import React from "react";
 

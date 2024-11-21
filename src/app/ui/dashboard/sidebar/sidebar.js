@@ -7,7 +7,7 @@ import { signOut } from "@/app/auth";
 
 export default function Sidebar() {
   return (
-    <div className=" w-full min-h-screen p-8 -bg--bgSoft">
+    <div className=" flex flex-col w-full min-h-screen p-8 -bg--bgSoft">
       <div className="mb-7">
         <div className="items-center flex gap-4 text-2xl mb-3">
           <span className=" bg-gray-400 rounded-full p-2">
@@ -23,6 +23,7 @@ export default function Sidebar() {
         <SideBarContainer />
       </div>
       <form
+        className=" justify-self-end"
         action={async () => {
           "use server";
           await signOut();

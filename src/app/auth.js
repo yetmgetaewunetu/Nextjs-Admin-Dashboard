@@ -5,7 +5,24 @@ import { dbConnection } from "./lib/utils";
 import { User } from "./lib/models";
 import bcrypt from "bcrypt";
 
-// const login = async (credentials) => {};
+const login = async (credentials) => {
+  try {
+    const user = await User.findOne({ username: credentials.username });
+
+    if (!user) throw new Error("invalid credentials!!!");
+
+    const isPasswordCorrect = await bcrypt.compare(
+      credentials.password,
+      user.password
+    );
+    if (!isPasswordCorrect) throw new Error("invalid credentials");
+    // console.log(user);
+    return user;
+  } catch (error) {
+    console.log(error.message);
+    throw new Error("failed to login!");
+  }
+};
 
 export const { auth, signIn, signOut } = NextAuth({
   ...authConfig,
@@ -14,20 +31,10 @@ export const { auth, signIn, signOut } = NextAuth({
     Credentials({
       async authorize(credentials, req) {
         try {
-          const user = await User.findOne({ username: credentials.username });
-
-          if (!user) throw new Error("invalid credentials!!!");
-
-          const isPasswordCorrect = await bcrypt.compare(
-            credentials.password,
-            user.password
-          );
-          if (!isPasswordCorrect) throw new Error("invalid credentials");
-          // console.log(user);
+          const user = await login(credentials);
           return user;
         } catch (error) {
           console.log(error.message);
-          // throw new Error("failed to login!");
           return null;
         }
       },

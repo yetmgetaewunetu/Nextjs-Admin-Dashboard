@@ -1,7 +1,7 @@
-import { getProduct, updateProduct } from "@/app/lib/actions";
-import { Product } from "@/app/lib/models";
+import { getAllProducts, getProduct, updateProduct } from "@/app/lib/actions";
 import Image from "next/image";
 import React from "react";
+
 async function SingleProductViewPage({ params }) {
   const { id } = params;
   const product = await getProduct(id);
